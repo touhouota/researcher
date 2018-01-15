@@ -4,3 +4,4 @@ vendor/
 Gemfile.lock
 local_passwd
 css/
+table.txt
