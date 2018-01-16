@@ -22,9 +22,6 @@ guard 'sass', input: 'scss', output: 'css'
 # guard :concat, type: 'js',
 #                files: %w[base_object notification chart_list_test progress_timer_todo timeline_list_test todo_simple todo_modal todo_page_simple], input_dir: 'js', output: 'js/todo_concated'
 
-# memberページのものを関し
-# guard :concat, type: 'js',
-#                files: %w[base_object members_list_test members_page], input_dir: 'js', output: 'js/members_concated'
-
-# guard :concat, type: 'js',
-#                files: %w[base_object week_screen week_sender week_page], input_dir: 'js', output: 'js/week_concated'
+# loginページのJSファイルを監視
+guard :concat, type: 'js',
+               files: %w[base_object login login_page], input_dir: 'js', output: 'js/login_concated'
