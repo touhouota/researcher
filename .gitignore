@@ -5,3 +5,5 @@ Gemfile.lock
 local_passwd
 css/
 table.txt
+js/*_concated.js
+js/*_min.js
