@@ -4,6 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<title>用語の調査 | Researcher</title>
+	<link rel="stylesheet" href="./css/main.css">
 </head>
 
 <body>
@@ -154,12 +155,12 @@
 	<template id="form_template">
         <form class="task_form">
             <label>
-                目標時間： <input type="number" name="goal" value="">
+                目標時間： <input type="number" name="goal" value="" step="5">分
             </label>
             <label>
-                進捗度： <progress value="0" max="100"></progress> <br>
-                <button type="button" name="minus">ー</button>
-                <button type="button" name="plus">＋</button>
+                進捗度： <progress value="0" max="100" class="progress"></progress> <br>
+                <button type="button" class="minus">ー</button>
+                <button type="button" class="plus">＋</button>
             </label>
             <label>
                 メモ: <textarea name="memo" rows="8" cols="80"></textarea>
