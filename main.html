@@ -150,6 +150,25 @@
 
 		</table>
 	</div>
+
+	<template id="form_template">
+        <form class="task_form">
+            <label>
+                目標時間： <input type="number" name="goal" value="">
+            </label>
+            <label>
+                進捗度： <progress value="0" max="100"></progress> <br>
+                <button type="button" name="minus">ー</button>
+                <button type="button" name="plus">＋</button>
+            </label>
+            <label>
+                メモ: <textarea name="memo" rows="8" cols="80"></textarea>
+            </label>
+        </form>
+    </template>
+
+	<script type="text/javascript" src="./js/main_concated,js">
+	</script>
 </body>
 
 </html>
