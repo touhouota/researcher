@@ -54,6 +54,7 @@ def start_task(json)
   # new_row = CSV::Row.new(tasks.headers, [])
   new_row = nil
   CSV.open($plan_csv, 'a', encoding: 'UTF-8') do |csv|
+    csv << tasks.headers
     tasks.each do |task|
       if task[:plan_id] == json[:plan_id]
         new_row = task.to_hash
@@ -66,22 +67,13 @@ def start_task(json)
     end
   end
 
-  # task_table = CSV.table($tasks_csv, encoding: 'UTF-8', headers: true)
-  # index = task_table.headers.index(json[:user_id].to_sym)
-  # modify_row = task_table[json[:task]]
-  # modify_row[index] = tasks.size
-  # CSV.open($tasks_csv, 'w') do |csv|
-  #   csv << task_table.headers.map(&:to_s)
-  #   task_table.each do |row|
-  #     csv << if row[0] === json[:task]
-  #       modify_row
-  #            else
-  #       row
-  #            end
-  #   end
-  # end
-
   { ok: true, data: new_row.to_h }
+end
+
+def get_tasks
+  tasks = CSV.read($plan_csv)
+
+  { ok: true, data: tasks }
 end
 
 def modify_task(json)

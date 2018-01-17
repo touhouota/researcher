@@ -16,8 +16,10 @@ begin
   result = case parameter[:cmd]
            when 'check_account'
              check_account(parameter)
-           when 'append_task'
+           when 'start_task'
              start_task(parameter)
+           when 'get_task'
+             get_tasks(parameter)
            else
              { ok: false, data: { message: 'そんなコマンド無いよ' } }
   end
