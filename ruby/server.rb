@@ -19,7 +19,9 @@ begin
            when 'start_task'
              start_task(parameter)
            when 'get_task'
-             get_tasks(parameter)
+             get_tasks
+           when 'task_modify'
+             task_modify(parameter)
            else
              { ok: false, data: { message: 'そんなコマンド無いよ' } }
   end

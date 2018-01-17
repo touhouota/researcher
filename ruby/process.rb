@@ -46,21 +46,53 @@ end
 
 def start_task(json)
   hope = %i[user_id plan_id]
-  raise ArgumentError, 'append_task' + $argument_error_str unless _check_data(hope, json)
+  raise ArgumentError, 'start_task' + $argument_error_str unless _check_data(hope, json)
 
   tasks = CSV.table($plan_csv, encoding: 'UTF-8')
 
   # タスクを追加
-  # new_row = CSV::Row.new(tasks.headers, [])
   new_row = nil
-  CSV.open($plan_csv, 'a', encoding: 'UTF-8') do |csv|
+  CSV.open($plan_csv, 'w', encoding: 'UTF-8') do |csv|
     csv << tasks.headers
     tasks.each do |task|
-      if task[:plan_id] == json[:plan_id]
-        new_row = task.to_hash
-        new_row[:date] = Time.now
+      if task[:plan_id].to_s == json[:plan_id]
+        new_row = task.to_h
+        new_row[:start] = Time.now
 
-        csv << new_row
+        csv << new_row.values
+      else
+        csv << task
+      end
+    end
+  end
+
+  { ok: true, data: new_row }
+end
+
+def get_tasks
+  tasks = CSV.read($plan_csv, encoding: 'UTF-8', headers: true)
+
+  { ok: true, data: tasks.map(&:to_h) }
+end
+
+def task_modify(json)
+  hope = %i[user_id plan_id]
+  raise ArgumentError, 'modify_task' + $argument_error_str unless _check_data(hope, json)
+
+  tasks = CSV.table($plan_csv, encoding: 'UTF-8')
+
+  # タスクを追加
+  new_row = nil
+  CSV.open($plan_csv, 'w', encoding: 'UTF-8') do |csv|
+    csv << tasks.headers
+    tasks.each do |task|
+      if task[:plan_id].to_s == json[:plan_id]
+        new_row = task.to_h
+        new_row[:expected] = json[:minute]
+        new_row[:memo] = json[:memo]
+        new_row[:progress] = json[:progress]
+
+        csv << new_row.values
       else
         csv << task
       end
@@ -68,15 +100,4 @@ def start_task(json)
   end
 
   { ok: true, data: new_row.to_h }
-end
-
-def get_tasks
-  tasks = CSV.read($plan_csv)
-
-  { ok: true, data: tasks }
-end
-
-def modify_task(json)
-  hope = %i[user_id plan_id]
-  raise ArgumentError, 'modify_task' + $argument_error_str unless _check_data(hope, json)
 end
