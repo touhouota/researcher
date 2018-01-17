@@ -7,7 +7,10 @@ tasks = %w[オブジェクト指向プログラミング クラス インスタ�
 headers = CSV.read('./list/plans.csv').first.map(&:to_sym)
 
 CSV.open('./list/plans.csv', 'w', encoding: 'UTF-8', headers: true) do |csv|
+  csv << headers
+
   plan_id = 0
+
   users.each do |user_id|
     tasks.each do |task|
       row = CSV::Row.new(headers, [])
