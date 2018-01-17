@@ -17,8 +17,10 @@ window.onload = function() {
 		// console.log(button);
 
 		button.addEventListener("click", Events.create_form);
+		my_areas[i].appendChild(button);
+
+		// 進捗更新ボタンのイベントを定義
 		my_areas[i].querySelector(".plus").addEventListener("click", Events.progress_plus);
 		my_areas[i].querySelector(".minus").addEventListener("click", Events.progress_minus);
-		my_areas[i].appendChild(button);
 	}
 }
