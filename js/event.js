@@ -1,22 +1,16 @@
 let Events = {
 	create_form: function(event) {
-		let button = Base.parents(event.target, "add_task");
-		button.classList.add("hide");
-
-		let _template = document.getElementById("form_template");
-		let template = document.importNode(_template.content, true);
-		console.log("create_form");
-
-		// 作ったものに対して、イベントを追加する
-		Events.setting_progress_event(template);
-
 		let target_area = Base.parents(event.target, Base.get_cookie("user_id"));
-		target_area.appendChild(template);
+		let form = target_area.querySelector(".task_form");
+		// タスクformを表示
+		Display.at(form);
+		// 「やるぞ」ボタンの非表示
+		Display.hide_element(target_area.querySelector(".add_task"));
 
 		let query = [
-			"cmd=append_task",
+			"cmd=start_task",
 			"&user_id=" + Base.get_cookie("user_id"),
-			"&task=" + target_area.dataset.task,
+			"&plan_id=" + form.plan_id.value,
 		].join("");
 
 		// 
@@ -24,6 +18,16 @@ let Events = {
 			let response = JSON.parse(this.responseText);
 			console.table(response);
 		}).send(query);
+
+	},
+
+	form_change: function(event) {
+		console.log("form_change: ", event.target.value);
+		let form = Base.parents(event.target, "task_form");
+		let formdata = new FormData(form);
+		formdata.append("progress", form.querySelector(".progress").value);
+
+		Events.send_task_info(formdata);
 	},
 
 	progress_plus: function(event) {
@@ -39,6 +43,9 @@ let Events = {
 
 		// 値を指定する
 		progress.value = value;
+		let formdata = new FormData(form);
+		formdata.append("progress", value);
+		Events.send_task_info(formdata);
 	},
 
 	progress_minus: function(event) {
@@ -55,10 +62,32 @@ let Events = {
 
 		// 値の指定
 		progress.value = value;
+		let formdata = new FormData(form);
+		formdata.append("progress", value);
+		Events.send_task_info(formdata);
 	},
 
-	setting_progress_event: function(form) {
-		form.querySelector(".plus").addEventListener("click", Events.progress_plus);
-		form.querySelector(".minus").addEventListener("click", Events.progress_minus);
+	// 変更をサーバへ送る
+	// input: {cmd=xxxx, user_id=xxxx, plan_id=xxxx}
+	send_task_info: function(formdata) {
+		formdata.append("cmd", "task_modify");
+		formdata.append("user_id", Base.get_cookie("user_id"));
+
+		Base.create_request("POST", Base.request_path, function() {
+			let response = JSON.parse(this.responseText);
+			if (response.ok) {
+				let task_data = response.data;
+				let search_query = [
+					"input[value='",
+					task_data.plan_id,
+					"']",
+				].join("");
+				let form = Base.parents(document.querySelector(search_query), "task_form");
+				console.log(form);
+				form.minute.value = task_data.expected;
+				form.querySelector(".progress").value = task_data.progress;
+				form.memo.value = task_data.memo;
+			}
+		}).send(formdata);
 	},
-};
+}
