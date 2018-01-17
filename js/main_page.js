@@ -17,13 +17,14 @@ window.onload = function() {
 		// console.log(button);
 
 		button.addEventListener("click", Events.create_form);
+		my_areas[i].querySelector(".plus").addEventListener("click", Events.progress_plus);
+		my_areas[i].querySelector(".minus").addEventListener("click", Events.progress_minus);
 		my_areas[i].appendChild(button);
 	}
 
-	let task_forms = document.forms;
-	let form_num = task_forms.length;
-	for (i = 0; i < form_num; i += 1) {
-		task_forms[i].querySelector(".plus").addEventListener("click", Events.progress_plus);
-		task_forms[i].querySelector(".minus").addEventListener("click", Events.progress_minus);
-	}
+	// let task_forms = document.forms;
+	// let form_num = task_forms.length;
+	// for (i = 0; i < form_num; i += 1) {
+	// 
+	// }
 }
