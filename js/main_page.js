@@ -21,10 +21,4 @@ window.onload = function() {
 		my_areas[i].querySelector(".minus").addEventListener("click", Events.progress_minus);
 		my_areas[i].appendChild(button);
 	}
-
-	// let task_forms = document.forms;
-	// let form_num = task_forms.length;
-	// for (i = 0; i < form_num; i += 1) {
-	// 
-	// }
 }
