@@ -4,6 +4,7 @@ vendor/
 Gemfile.lock
 local_passwd
 css/
+.sass-*
 .DS_Store
 table.txt
 js/*_concated.js

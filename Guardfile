@@ -16,12 +16,11 @@ guard :shell do
   end
 end
 
-guard 'sass', input: 'scss', output: 'css'
-
-# todoページのものを監視
-# guard :concat, type: 'js',
-#                files: %w[base_object notification chart_list_test progress_timer_todo timeline_list_test todo_simple todo_modal todo_page_simple], input_dir: 'js', output: 'js/todo_concated'
+guard 'sass', input: 'sass', output: 'css'
 
 # loginページのJSファイルを監視
 guard :concat, type: 'js',
                files: %w[base_object login login_page], input_dir: 'js', output: 'js/login_concated'
+
+guard :concat, type: 'js',
+               files: %w[base_object display event form main_page], input_dir: 'js', output: 'js/main_concated'
