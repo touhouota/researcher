@@ -6,20 +6,24 @@ window.onload = function() {
 	}
 
 	let _template_button = document.getElementById("task_button_template");
-	let template_button;
+	let template_button = document.importNode(_template_button.content, true);
 
 	let my_areas = document.getElementsByClassName(Base.get_cookie("user_id"));
 	let i = 0,
 		length = my_areas.length;
 
 	for (i = 1; i < length; i += 1) {
-		// 0の時は無視
-		// if (i === 0) continue;
+		button = template_button.cloneNode(true).querySelector("button");
+		// console.log(button);
 
-		template_button = document.importNode(_template_button.content, true);
-		template_button = template_button.querySelector("button");
+		button.addEventListener("click", Events.create_form);
+		my_areas[i].appendChild(button);
+	}
 
-		template_button.addEventListener("click", Events.create_form);
-		my_areas[i].appendChild(template_button);
+	let task_forms = document.forms;
+	let form_num = task_forms.length;
+	for (i = 0; i < form_num; i += 1) {
+		task_forms[i].querySelector(".plus").addEventListener("click", Events.progress_plus);
+		task_forms[i].querySelector(".minus").addEventListener("click", Events.progress_minus);
 	}
 }
