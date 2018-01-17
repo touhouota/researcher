@@ -1,4 +1,5 @@
 #!/usr/local/Ruby/bin/ruby
+
 require 'cgi'
 require 'csv'
 require 'json'
@@ -14,9 +15,11 @@ begin
 
   result = case parameter[:cmd]
            when 'check_account'
-    check_account(parameter)
+             check_account(parameter)
+           when 'append_task'
+             start_task(parameter)
            else
-    { ok: false, data: { message: 'そんなコマンド無いよ' } }
+             { ok: false, data: { message: 'そんなコマンド無いよ' } }
   end
 
   print JSON.generate(result)
