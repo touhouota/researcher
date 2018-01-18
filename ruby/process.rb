@@ -88,9 +88,14 @@ def task_modify(json)
     tasks.each do |task|
       if task[:plan_id].to_s == json[:plan_id]
         new_row = task.to_h
-        new_row[:expected] = json[:minute]
-        new_row[:memo] = json[:memo]
-        new_row[:progress] = json[:progress]
+        new_row[:expected] = json[:minute] unless json[:minute].nil?
+        new_row[:memo] = json[:memo] unless json[:memo].nil?
+        new_row[:progress] = json[:progress] unless json[:progress].nil?
+
+        # もし、progressが100になったら、終了時間を印字
+        if !json[:progress].nil? && json[:progress] === '100'
+          new_row[:finish] = Time.now
+        end
 
         csv << new_row.values
       else
