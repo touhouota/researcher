@@ -1,16 +1,17 @@
+# coding: utf-8
+
 require 'csv'
 require 'erb'
 
 users = CSV.read('./list/users.csv').to_h
 user_id = nil
 
-table = CSV.table('./list/progress_table.csv')
+table = CSV.table('./list/progress_table.csv', encoding: 'UTF-8')
 # 　配列に変換して転置
 user_task = table.to_a.transpose
 header = user_task.shift
 
 form = <<FORM
-
 <form class="task_form hide">
   <p>
     <label>
@@ -21,7 +22,7 @@ form = <<FORM
     <label>
       進捗度：
       <button type="button" class="minus">ー</button>
-      <progress value="0" max="100" class="progress" name="progress_bar"></progress>
+      <progress value="0" max="100" class="progress"></progress>
       <button type="button" class="plus">＋</button>
     </label>
   </p>
@@ -52,7 +53,7 @@ html = <<TEMPLATE
       <td class="<%= user_id %>"> <%= users[user_id] %> </td>
     <% else %>
       <td data-task="<%= header[idx] %>" class="<%= user_id %>">
-      <%= form %>
+        <%= form %>
       </td>
     <% end %>
   <% end %>
