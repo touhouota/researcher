@@ -1,4 +1,5 @@
 #!/usr/local/Ruby/bin/ruby
+# coding: utf-8
 
 require 'cgi'
 require 'csv'
