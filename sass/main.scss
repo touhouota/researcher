@@ -1,27 +1,66 @@
 td,
 th {
-	border-right: 1px solid #000;
-	border-bottom: 1px solid #000;
+    border-right: 1px solid #000;
+    border-bottom: 1px solid #000;
+    min-width: 240px;
+    text-align: center;
 }
 
 p {
-	margin: 5px;
+    margin: 5px;
+    text-align: left;
 }
 
 input[type='number'] {
-	width: 35px;
+    width: 35px;
 }
 
 .progress {
-	width: 60px;
+    width: 60px;
 }
 
 textarea {
-	width: 190px;
-	height: 70px;
-	resize: none;
+    width: 190px;
+    height: 70px;
+    resize: none;
 }
 
 .hide {
-	display: none;
+    display: none;
+}
+
+button.add_task {
+    display: inline-block;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    font-weight: bolder;
+    color: #bb1fde;
+    border: solid 2px #ab11c7;
+    border-radius: 3px;
+    transition: 0.4s;
+
+    &:active {
+        background: #bb1fde;
+        color: white;
+    }
+
+    &.hide {
+        display: none;
+    }
+}
+
+.todo {
+    background-color: #ea74744a;
+}
+
+.doing_first {
+    background-color: #ff97164a;
+}
+
+.doing_second {
+    background-color: #d6e2704a;
+}
+
+.done {
+    background-color: #16ff284a;
 }
