@@ -28,4 +28,22 @@ let Display = {
                 break;
         }
     },
+
+    icon_change: function(change_area, status) {
+        console.log("icon_change:", change_area, status);
+        let icon = change_area.querySelector(".ajax_info > img");
+        switch (status) {
+            case "succ":
+                icon.src = "./image/succ.png";
+                break;
+            case "fail":
+                icon.src = "./image/fail.png";
+                break;
+            case "loading":
+                icon.src = "./image/loading.gif";
+                break;
+            default:
+                console.log("そんな状態ありません");
+        }
+    },
 };

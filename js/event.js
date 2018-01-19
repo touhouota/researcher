@@ -17,8 +17,28 @@ let Events = {
         Base.create_request("POST", Base.request_path, function() {
             let response = JSON.parse(this.responseText);
             console.table(response);
+            // 目的のタスクを探すクエリー
+            let search_query;
+            if (response.ok) {
+                search_query = [
+                    ".",
+                    response.data.user_id,
+                    "[data-task='", response.data.task, "']"
+                ].join("");
+                console.log(search_query);
+                Display.icon_change(document.querySelector(search_query), "succ");
+            } else {
+                search_query = [
+                    ".",
+                    response.input.user_id,
+                    "[data-task='" + response.input.task + "']",
+                ].join("");
+                Display.icon_change(document.querySelector(search_query), "fail");
+            }
         }).send(query);
 
+        // タスクの状態をloadingにする
+        Display.icon_change(target_area, "loading");
     },
 
     form_change: function(event) {
@@ -28,6 +48,8 @@ let Events = {
         formdata.append("progress", form.querySelector(".progress").value);
 
         Events.send_task_info(formdata);
+        // 読み込み中にする
+        Display.icon_change(form.parentElement, "loading");
     },
 
     progress_plus: function(event) {
@@ -48,6 +70,8 @@ let Events = {
         let formdata = new FormData(form);
         formdata.append("progress", value);
         Events.send_task_info(formdata);
+        // 読み込み中にする
+        Display.icon_change(form.parentElement, "loading");
 
         // 色を変更
         Display.progress_to_color(form.parentElement, value);
@@ -70,6 +94,8 @@ let Events = {
         let formdata = new FormData(form);
         formdata.append("progress", value);
         Events.send_task_info(formdata);
+        // 読み込み中にする
+        Display.icon_change(form.parentElement, "loading");
 
         // 色を変更
         Display.progress_to_color(form.parentElement, value);
@@ -95,6 +121,17 @@ let Events = {
                 form.minute.value = task_data.expected;
                 form.querySelector(".progress").value = task_data.progress;
                 form.memo.value = task_data.memo;
+
+                // 状態を更新
+                Display.icon_change(form.parentElement, "succ");
+            } else {
+                // エラーの時は、入力したタスク情報からセルを特定
+                let search_query = [
+                    ".",
+                    response.input.user_id,
+                    "[data-task='" + response.input.task + "']",
+                ].join("");
+                Display.icon_change(document.querySelector(search_query), "fail");
             }
         }).send(formdata);
     },
