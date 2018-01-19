@@ -79,7 +79,7 @@ def task_modify(json)
   hope = %i[user_id plan_id]
   raise ArgumentError, 'modify_task' + $argument_error_str unless _check_data(hope, json)
 
-  tasks = CSV.table($plan_csv, encoding: 'UTF-8')
+  tasks = CSV.table($plan_csv, encoding: 'UTF-8', skip_blanks: true)
 
   # タスクを追加
   new_row = nil
