@@ -1,9 +1,25 @@
+.container,
+.table {
+    position: relative;
+}
+
 td,
 th {
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
     min-width: 240px;
     text-align: center;
+    position: relative;
+
+    .ajax_info {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        img {
+            width: 20px;
+        }
+    }
 }
 
 p {
