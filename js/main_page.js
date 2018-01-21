@@ -14,6 +14,9 @@ window.onload = function() {
     let event_targets, j = 0,
         target_size;
 
+    let _status_template = document.getElementById("ajaxinfo_template");
+    let status_template = document.importNode(_status_template.content, true);
+    let icon;
     for (i = 1; i < length; i += 1) {
         button = template_button.cloneNode(true).querySelector("button");
         // console.log(button);
@@ -21,10 +24,15 @@ window.onload = function() {
         button.addEventListener("click", Events.create_form);
         my_areas[i].appendChild(button);
 
+        // 状態を表すアイコンを設置
+        icon = status_template.cloneNode(true);
+        my_areas[i].appendChild(icon);
+
         // 進捗更新ボタンのイベントを定義
         my_areas[i].querySelector(".plus").addEventListener("click", Events.progress_plus);
         my_areas[i].querySelector(".minus").addEventListener("click", Events.progress_minus);
 
+        // 入力欄に、変化がある場合サーバへ送るようにイベントを追加
         event_targets = my_areas[i].querySelectorAll("input[type=number], textarea");
         for (j = 0, target_size = event_targets.length; j < target_size; j += 1) {
             event_targets[j].addEventListener("change", Events.form_change);
