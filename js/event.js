@@ -13,13 +13,14 @@ let Events = {
             "&plan_id=" + form.plan_id.value,
         ].join("");
 
-        //
+        // 
         Base.create_request("POST", Base.request_path, function() {
             let response = JSON.parse(this.responseText);
             console.table(response);
             // 目的のタスクを探すクエリー
             let search_query;
             if (response.ok) {
+                // querySelector(".bxxxxxxx[data-task='hoge']")のような形の文字列を作る
                 search_query = [
                     ".",
                     response.data.user_id,

@@ -7,7 +7,7 @@ td,
 th {
     border-right: 1px solid #000;
     border-bottom: 1px solid #000;
-    min-width: 240px;
+    min-width: 150px;
     text-align: center;
     position: relative;
 
@@ -45,11 +45,13 @@ textarea {
     display: none;
 }
 
+// タスク宣言のボタン
 button.add_task {
     display: inline-block;
     padding: 0.3em 1em;
     text-decoration: none;
     font-weight: bolder;
+    background-color: #fff;
     color: #bb1fde;
     border: solid 2px #ab11c7;
     border-radius: 3px;

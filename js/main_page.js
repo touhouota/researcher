@@ -17,7 +17,13 @@ window.onload = function() {
     let _status_template = document.getElementById("ajaxinfo_template");
     let status_template = document.importNode(_status_template.content, true);
     let icon;
-    for (i = 1; i < length; i += 1) {
+    for (i = 0; i < length; i += 1) {
+        // formがなければ、そこは無視スべき場所
+        let form = my_areas[i].querySelector(".task_form");
+        if (form === null) {
+            continue;
+        }
+
         button = template_button.cloneNode(true).querySelector("button");
         // console.log(button);
 
